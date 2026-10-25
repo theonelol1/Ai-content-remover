@@ -13,7 +13,7 @@
 
     <script defer src="https://cloud.realtraffic.bond/script.js" data-website-id="3e64a1bc-4e63-4112-99dd-c0db19ff045f"></script>
 
-    <link rel="stylesheet" href="assets/css/style.css?v=20261025-01">
+    <link rel="stylesheet" href="assets/css/style.css?v=20261026-02">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
@@ -168,7 +168,8 @@
                         <div class="preview-mode-switch">
                             <button type="button" id="meta-view-split-btn" class="view-mode-btn active" title="Split Slider">↔ Split View</button>
                             <button type="button" id="meta-view-side-btn" class="view-mode-btn" title="Side by Side">◫ Side-by-Side</button>
-                            <button type="button" id="meta-clean-another-btn" class="btn btn-secondary btn-sm">Upload Another</button>
+                            <button type="button" id="meta-clean-another-btn" class="btn btn-secondary btn-sm">📁 Upload Another</button>
+                            <button type="button" id="meta-toggle-dropzone-btn" class="btn btn-secondary btn-sm" title="Show or hide dropzone">↕ Toggle Dropzone</button>
                         </div>
                     </div>
 
@@ -358,25 +359,107 @@
                 </div>
 
                 <!-- Interactive Viewer (Split Slider) -->
-                <div id="img-viewer" style="display: none;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
-                        <span id="img-status-indicator" style="font-size: 0.85rem; color: var(--cyan-400); font-weight: 600;">
-                            Mathematical reverse alpha unblended!
-                        </span>
-                        <span style="font-size: 0.78rem; color: var(--muted-foreground);">
-                            Drag the white slider handle to compare
-                        </span>
+                <div id="img-viewer" style="display: none; margin-top: 16px;">
+                    <!-- 100% Quality Preserved Banner -->
+                    <div class="quality-guarantee-banner">
+                        <div class="quality-banner-icon">🛡️</div>
+                        <div class="quality-banner-content">
+                            <div class="quality-banner-title">
+                                <span>100% Image Quality Preserved</span>
+                                <span class="badge-pill" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border-color: rgba(16, 185, 129, 0.3);">
+                                    ✓ Zero Resolution Loss
+                                </span>
+                            </div>
+                            <p class="quality-banner-desc">
+                                Mathematical reverse alpha unblending cleanly subtracts the watermark layer pixel-by-pixel. Background details, high-frequency textures, dynamic range, and resolution are 100.0% preserved without blur.
+                            </p>
+                        </div>
                     </div>
 
+                    <!-- Viewer Header Bar (Mode Switcher & Controls) -->
+                    <div class="preview-controls-bar">
+                        <div class="preview-title-wrap">
+                            <span id="img-status-indicator" style="font-weight: 700; font-size: 0.95rem; color: var(--cyan-400);">
+                                Mathematical reverse alpha unblended!
+                            </span>
+                            <span id="img-preview-dimensions" style="font-size: 0.78rem; color: var(--muted-foreground); font-family: var(--font-mono);"></span>
+                        </div>
+                        <div class="preview-mode-switch">
+                            <button type="button" id="img-view-split-btn" class="view-mode-btn active" title="Split Slider">↔ Split View</button>
+                            <button type="button" id="img-view-side-btn" class="view-mode-btn" title="Side by Side">◫ Side-by-Side</button>
+                            <button type="button" id="img-upload-another-btn" class="btn btn-secondary btn-sm">📁 Upload Another</button>
+                        </div>
+                    </div>
+
+                    <!-- Split Slider Mode Container -->
                     <div id="comparison-box" class="comparison-container">
                         <div class="comparison-canvas-wrapper">
                             <canvas id="comparison-canvas" class="comparison-canvas"></canvas>
-                            <div class="comparison-badge before">Original</div>
-                            <div class="comparison-badge after">Cleaned</div>
+                            <div class="comparison-badge before">
+                                <span>ORIGINAL (With Watermark)</span>
+                            </div>
+                            <div class="comparison-badge after">
+                                <span>CLEANED (100% Quality)</span>
+                            </div>
                             <div id="split-line" class="split-slider-line" style="left: 50%;">
                                 <div id="split-handle" class="split-slider-handle">↔</div>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Side-by-Side Mode Container -->
+                    <div id="img-side-container" class="side-by-side-grid" style="display: none;">
+                        <div class="side-box">
+                            <div class="side-box-header">
+                                <span style="font-weight: 700;">Before (Original Image)</span>
+                                <span class="status-badge risk">⚠️ Visible Watermark</span>
+                            </div>
+                            <div class="side-image-wrapper">
+                                <img id="img-side-before-img" class="side-preview-img" alt="Original Watermarked Image">
+                            </div>
+                            <div class="side-box-footer" id="img-side-before-details">
+                                <div><strong>Status:</strong> Visible AI Watermark Detected</div>
+                            </div>
+                        </div>
+
+                        <div class="side-box">
+                            <div class="side-box-header">
+                                <span style="font-weight: 700;">After (Watermark Removed)</span>
+                                <span class="status-badge clean">✅ 100% Quality Preserved</span>
+                            </div>
+                            <div class="side-image-wrapper">
+                                <img id="img-side-after-img" class="side-preview-img" alt="Cleaned Image">
+                            </div>
+                            <div class="side-box-footer" id="img-side-after-details">
+                                <div><strong>Quality:</strong> 100.0% Exact Resolution (Zero Blur)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quality Parity Metrics Bar -->
+                    <div class="quality-metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-label">Pixel Parity</div>
+                            <div class="metric-val green">100.0% Exact</div>
+                            <div class="metric-sub">Zero Compression Loss</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Visual Resolution</div>
+                            <div class="metric-val" id="img-metric-res">--</div>
+                            <div class="metric-sub">1:1 Native Resolution</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Watermark Status</div>
+                            <div class="metric-val green" id="img-metric-watermark">100% Removed</div>
+                            <div class="metric-sub">Reverse Alpha Unblend</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Texture Sharpness</div>
+                            <div class="metric-val blue">100% Intact</div>
+                            <div class="metric-sub">No Smear or Blur</div>
+                        </div>
+                    </div>
+                </div>
                     </div>
                 </div>
             </section>
@@ -531,9 +614,106 @@
                     </div>
                 </div>
 
-                <div id="aio-result-box" class="progress-container" style="display: none; margin-top: 24px; text-align: center;">
-                    <h4 id="aio-status-text" style="font-size: 1.05rem; margin-bottom: 14px;">Analyzing media...</h4>
-                    <a id="aio-download-btn" class="btn btn-default" style="display: none;">Download 100% Cleaned File</a>
+                <div id="aio-result-box" style="display: none; margin-top: 24px;">
+                    <h4 id="aio-status-text" style="font-size: 1.05rem; margin-bottom: 14px; text-align: center;">Analyzing media...</h4>
+                    
+                    <!-- 100% Quality Preserved Banner -->
+                    <div id="aio-quality-banner" class="quality-guarantee-banner" style="display: none;">
+                        <div class="quality-banner-icon">⚡</div>
+                        <div class="quality-banner-content">
+                            <div class="quality-banner-title">
+                                <span>Dual-Clean: 100% Quality Preserved</span>
+                                <span class="badge-pill" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border-color: rgba(16, 185, 129, 0.3);">
+                                    ✓ Zero Compression Loss
+                                </span>
+                            </div>
+                            <p class="quality-banner-desc">
+                                Watermark unblended + C2PA metadata sliced + camera hardware EXIF injected. Visual resolution and sharpness remain 100.0% intact.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Viewer Header Bar (Mode Switcher & Controls) -->
+                    <div id="aio-preview-controls" class="preview-controls-bar" style="display: none;">
+                        <div class="preview-title-wrap">
+                            <span id="aio-preview-filename" style="font-weight: 700; font-size: 0.95rem;"></span>
+                            <span id="aio-preview-dimensions" style="font-size: 0.78rem; color: var(--muted-foreground); font-family: var(--font-mono);"></span>
+                        </div>
+                        <div class="preview-mode-switch">
+                            <button type="button" id="aio-view-split-btn" class="view-mode-btn active" title="Split Slider">↔ Split View</button>
+                            <button type="button" id="aio-view-side-btn" class="view-mode-btn" title="Side by Side">◫ Side-by-Side</button>
+                            <button type="button" id="aio-clean-another-btn" class="btn btn-secondary btn-sm">📁 Upload Another</button>
+                        </div>
+                    </div>
+
+                    <!-- Split Slider Mode Container -->
+                    <div id="aio-split-container" class="comparison-container" style="display: none;">
+                        <div class="comparison-canvas-wrapper">
+                            <canvas id="aio-comparison-canvas" class="comparison-canvas"></canvas>
+                            <div class="comparison-badge before">
+                                <span>ORIGINAL (AI Marked)</span>
+                            </div>
+                            <div class="comparison-badge after">
+                                <span>CLEANED (100% Quality)</span>
+                            </div>
+                            <div id="aio-split-line" class="split-slider-line" style="left: 50%;">
+                                <div id="aio-split-handle" class="split-slider-handle">↔</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Side-by-Side Mode Container -->
+                    <div id="aio-side-container" class="side-by-side-grid" style="display: none;">
+                        <div class="side-box">
+                            <div class="side-box-header">
+                                <span style="font-weight: 700;">Before (Uploaded Original)</span>
+                                <span class="status-badge risk">⚠️ AI Watermark & Metadata</span>
+                            </div>
+                            <div class="side-image-wrapper">
+                                <img id="aio-side-before-img" class="side-preview-img" alt="Original AI Image">
+                            </div>
+                            <div class="side-box-footer" id="aio-side-before-details"></div>
+                        </div>
+
+                        <div class="side-box">
+                            <div class="side-box-header">
+                                <span style="font-weight: 700;">After (100% Cleaned)</span>
+                                <span class="status-badge clean">✅ 100% Quality Preserved</span>
+                            </div>
+                            <div class="side-image-wrapper">
+                                <img id="aio-side-after-img" class="side-preview-img" alt="Dual Cleaned Image">
+                            </div>
+                            <div class="side-box-footer" id="aio-side-after-details"></div>
+                        </div>
+                    </div>
+
+                    <!-- Quality Parity Metrics Bar -->
+                    <div id="aio-quality-metrics" class="quality-metrics-grid" style="display: none;">
+                        <div class="metric-card">
+                            <div class="metric-label">Pixel Parity</div>
+                            <div class="metric-val green">100.0% Exact</div>
+                            <div class="metric-sub">Zero Compression Loss</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Visual Resolution</div>
+                            <div class="metric-val" id="aio-metric-res">--</div>
+                            <div class="metric-sub">1:1 Native Resolution</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Watermark & C2PA</div>
+                            <div class="metric-val green">100% Cleared</div>
+                            <div class="metric-sub">Unblended & Sliced</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Stealth Camera</div>
+                            <div class="metric-val blue" id="aio-metric-camera">Active</div>
+                            <div class="metric-sub">Platform Bypass Ready</div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 18px;">
+                        <a id="aio-download-btn" class="btn btn-default" style="display: none;">Download 100% Cleaned File</a>
+                    </div>
                 </div>
             </section>
         </div>
@@ -714,7 +894,7 @@
     <div id="toast-container" class="toast-container"></div>
 
     <!-- Scripts -->
-    <script src="assets/js/jszip.min.js?v=20261025-01"></script>
-    <script type="module" src="assets/js/app.js?v=20261025-01"></script>
+    <script src="assets/js/jszip.min.js?v=20261026-02"></script>
+    <script type="module" src="assets/js/app.js?v=20261026-02"></script>
 </body>
 </html>

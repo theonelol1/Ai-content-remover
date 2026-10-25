@@ -472,7 +472,17 @@ export class MetadataStripper {
         }
 
         let cleanBlob;
-        let mime = file.type || 'image/jpeg';
+        let mime = 'image/jpeg';
+        if (format === 'png') {
+            mime = 'image/png';
+        } else if (format === 'webp') {
+            mime = 'image/webp';
+        } else if (format === 'mp4') {
+            mime = 'video/mp4';
+        } else if (file.type && file.type.startsWith('image/')) {
+            mime = file.type;
+        }
+
         if (cleanBuffer) {
             cleanBlob = new Blob([cleanBuffer], { type: mime });
         } else {
