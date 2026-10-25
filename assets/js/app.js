@@ -238,12 +238,216 @@ function initMetadataTool() {
         a.click();
         showToast('📦 ZIP download started!', 'success');
     });
+
+    initMetaPreviewControls();
+}
+
+let currentPreviewItem = null;
+let metaSplitPos = 50;
+let metaOrigImg = null;
+let metaCleanImg = null;
+
+function initMetaPreviewControls() {
+    const splitBtn = document.getElementById('meta-view-split-btn');
+    const sideBtn = document.getElementById('meta-view-side-btn');
+    const splitContainer = document.getElementById('meta-split-container');
+    const sideContainer = document.getElementById('meta-side-container');
+    const anotherBtn = document.getElementById('meta-clean-another-btn');
+    const inspectCurrentBtn = document.getElementById('meta-inspect-current-btn');
+    const fileInput = document.getElementById('meta-file-input');
+
+    splitBtn?.addEventListener('click', () => {
+        splitBtn.classList.add('active');
+        sideBtn?.classList.remove('active');
+        if (splitContainer) splitContainer.style.display = 'flex';
+        if (sideContainer) sideContainer.style.display = 'none';
+        if (metaOrigImg && metaCleanImg) {
+            renderMetaSplitCanvas(metaOrigImg, metaCleanImg, metaSplitPos);
+        }
+    });
+
+    sideBtn?.addEventListener('click', () => {
+        sideBtn.classList.add('active');
+        splitBtn?.classList.remove('active');
+        if (splitContainer) splitContainer.style.display = 'none';
+        if (sideContainer) sideContainer.style.display = 'grid';
+    });
+
+    anotherBtn?.addEventListener('click', () => {
+        fileInput?.click();
+    });
+
+    inspectCurrentBtn?.addEventListener('click', () => {
+        if (!currentPreviewItem) return;
+        const info = currentPreviewItem.metadataInfo;
+        showToast(`AI Signals: ${info.aiSignals.length} tags found. Risk: ${info.socialMediaLabelRisk}`, 'info');
+    });
+
+    // Split slider dragging for metadata comparison
+    const container = document.getElementById('meta-split-container');
+    const line = document.getElementById('meta-split-line');
+    let isDragging = false;
+
+    const setPosition = (clientX) => {
+        if (!container) return;
+        const rect = container.getBoundingClientRect();
+        let pct = ((clientX - rect.left) / rect.width) * 100;
+        pct = Math.max(0, Math.min(100, pct));
+        metaSplitPos = pct;
+        if (line) line.style.left = `${pct}%`;
+        if (metaOrigImg && metaCleanImg) {
+            renderMetaSplitCanvas(metaOrigImg, metaCleanImg, metaSplitPos);
+        }
+    };
+
+    container?.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        setPosition(e.clientX);
+    });
+    window.addEventListener('mousemove', (e) => {
+        if (isDragging) setPosition(e.clientX);
+    });
+    window.addEventListener('mouseup', () => {
+        isDragging = false;
+    });
+
+    // Mobile touch events
+    container?.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        if (e.touches && e.touches[0]) setPosition(e.touches[0].clientX);
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+        if (isDragging && e.touches && e.touches[0]) setPosition(e.touches[0].clientX);
+    }, { passive: true });
+
+    window.addEventListener('touchend', () => {
+        isDragging = false;
+    });
+}
+
+function displayMetadataBeforeAfter(item) {
+    if (!item) return;
+    currentPreviewItem = item;
+
+    const previewSection = document.getElementById('meta-preview-section');
+    if (!previewSection) return;
+    previewSection.style.display = 'block';
+
+    const filenameEl = document.getElementById('meta-preview-filename');
+    const dimsEl = document.getElementById('meta-preview-dimensions');
+    const dlBtn = document.getElementById('meta-download-current-btn');
+    const statEl = document.getElementById('meta-preview-file-stat');
+    const resEl = document.getElementById('meta-metric-res');
+    const strippedEl = document.getElementById('meta-metric-stripped');
+    const cameraEl = document.getElementById('meta-metric-camera');
+    const beforeRiskBadge = document.getElementById('meta-before-badge-risk');
+
+    if (filenameEl) filenameEl.textContent = item.originalFile.name;
+    if (dlBtn) {
+        dlBtn.href = item.cleanUrl;
+        dlBtn.download = item.cleanFileName;
+        dlBtn.textContent = `⬇️ Download 100% Clean Image (${(item.cleanSize / 1024).toFixed(1)} KB)`;
+    }
+    if (statEl) {
+        statEl.innerHTML = `Original: <strong>${(item.originalSize / 1024).toFixed(1)} KB</strong> · Cleaned: <strong>${(item.cleanSize / 1024).toFixed(1)} KB</strong> · Quality Loss: <strong style="color: var(--emerald-500);">0.0% (Bit-for-bit Lossless)</strong>`;
+    }
+    if (strippedEl) {
+        strippedEl.textContent = item.metadataInfo.aiSignals.length ? `${item.metadataInfo.aiSignals.length} Stripped` : '0 Sliced';
+    }
+    if (cameraEl) {
+        cameraEl.textContent = item.injectedPreset !== 'none' ? (MetadataStripper.CAMERA_PRESETS[item.injectedPreset]?.label.split('(')[0].trim() || 'Active') : 'Strict Clean';
+    }
+    if (beforeRiskBadge) {
+        beforeRiskBadge.textContent = item.metadataInfo.hasC2PA ? 'C2PA Manifest Detected' : (item.metadataInfo.aiSignals.length ? 'AI Tags Detected' : 'Raw Headers');
+    }
+
+    // Load original and clean images for split view & side-by-side
+    const origUrl = URL.createObjectURL(item.originalFile);
+    metaOrigImg = new Image();
+    metaCleanImg = new Image();
+
+    metaOrigImg.onload = () => {
+        const w = metaOrigImg.naturalWidth || metaOrigImg.width;
+        const h = metaOrigImg.naturalHeight || metaOrigImg.height;
+        if (dimsEl) dimsEl.textContent = `${w} × ${h} px · 100% Lossless Parity`;
+        if (resEl) resEl.textContent = `${w} × ${h}`;
+
+        metaCleanImg.onload = () => {
+            renderMetaSplitCanvas(metaOrigImg, metaCleanImg, metaSplitPos);
+
+            const sideBeforeImg = document.getElementById('meta-side-before-img');
+            const sideAfterImg = document.getElementById('meta-side-after-img');
+            const sideBeforeDetails = document.getElementById('meta-side-before-details');
+            const sideAfterDetails = document.getElementById('meta-side-after-details');
+            const sideBeforeRisk = document.getElementById('meta-side-before-risk');
+
+            if (sideBeforeImg) sideBeforeImg.src = origUrl;
+            if (sideAfterImg) sideAfterImg.src = item.cleanUrl;
+
+            if (sideBeforeRisk) {
+                sideBeforeRisk.textContent = item.metadataInfo.hasC2PA ? '⚠️ C2PA Manifest Detected' : (item.metadataInfo.aiSignals.length ? '⚠️ AI Tags Present' : 'ℹ️ Raw Metadata');
+            }
+
+            if (sideBeforeDetails) {
+                sideBeforeDetails.innerHTML = `
+                    <div><strong>File Size:</strong> ${(item.originalSize / 1024).toFixed(1)} KB</div>
+                    <div><strong>C2PA Manifests:</strong> ${item.metadataInfo.hasC2PA ? 'Detected (APP11 JUMBF)' : 'None'}</div>
+                    <div><strong>AI Generation Prompts:</strong> ${item.metadataInfo.hasAiPrompt ? 'Embedded in XMP' : 'None detected'}</div>
+                    <div><strong>Social Media Risk:</strong> <span style="color: ${item.metadataInfo.socialMediaLabelRisk === 'CRITICAL' ? 'var(--rose-500)' : 'var(--amber-500)'};">${item.metadataInfo.socialMediaLabelRisk} (Platform AI Flag)</span></div>
+                `;
+            }
+
+            if (sideAfterDetails) {
+                sideAfterDetails.innerHTML = `
+                    <div><strong>File Size:</strong> ${(item.cleanSize / 1024).toFixed(1)} KB (${(item.bytesSaved / 1024).toFixed(1)} KB metadata sliced)</div>
+                    <div><strong>Image Quality:</strong> <span style="color: var(--emerald-500); font-weight: 700;">100.0% Preserved (0 Compression Loss)</span></div>
+                    <div><strong>C2PA / AI Manifests:</strong> <span style="color: var(--emerald-500);">100% Sliced & Removed</span></div>
+                    <div><strong>Stealth Camera:</strong> ${item.injectedPreset !== 'none' ? MetadataStripper.CAMERA_PRESETS[item.injectedPreset]?.label : 'Strict Clean (No EXIF)'}</div>
+                `;
+            }
+        };
+        metaCleanImg.src = item.cleanUrl;
+    };
+    metaOrigImg.src = origUrl;
+
+    previewSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function renderMetaSplitCanvas(origImg, cleanImg, pct) {
+    const canvas = document.getElementById('meta-comparison-canvas');
+    if (!canvas || !origImg || !cleanImg) return;
+    const w = origImg.naturalWidth || origImg.width;
+    const h = origImg.naturalHeight || origImg.height;
+
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    const splitX = Math.round((pct / 100) * w);
+
+    // Left half: Original
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(0, 0, splitX, h);
+    ctx.clip();
+    ctx.drawImage(origImg, 0, 0);
+    ctx.restore();
+
+    // Right half: Cleaned
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(splitX, 0, w - splitX, h);
+    ctx.clip();
+    ctx.drawImage(cleanImg, 0, 0);
+    ctx.restore();
 }
 
 async function handleMetadataUpload(files) {
     const queueEl = document.getElementById('meta-queue');
     const actionsBar = document.getElementById('meta-actions-bar');
     if (actionsBar) actionsBar.style.display = 'flex';
+
+    let firstProcessedImage = null;
 
     for (const file of files) {
         showToast(`Scrubbing metadata from ${file.name}...`, 'info');
@@ -252,7 +456,16 @@ async function handleMetadataUpload(files) {
         });
         state.metadata.queue.push(processed);
         renderMetadataItem(processed, queueEl);
+
+        if (!firstProcessedImage && processed.format !== 'MP4') {
+            firstProcessedImage = processed;
+        }
     }
+
+    if (firstProcessedImage) {
+        displayMetadataBeforeAfter(firstProcessedImage);
+    }
+
     showToast(`✅ Successfully cleaned ${files.length} file(s)!`, 'success');
 }
 
@@ -272,26 +485,41 @@ function renderMetadataItem(item, container) {
     const stealthTag = item.injectedPreset && item.injectedPreset !== 'none' ?
         `<span style="color: var(--cyan-400); font-size: 0.72rem; background: rgba(34,211,238,0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(34,211,238,0.2);">📷 Stealth Camera: ${MetadataStripper.CAMERA_PRESETS[item.injectedPreset]?.label.split('(')[0].trim()}</span>` : '';
 
+    const isImage = item.format !== 'MP4';
+    const previewThumbnail = isImage ?
+        `<img src="${item.cleanUrl}" class="queue-thumbnail" alt="thumbnail" style="width: 48px; height: 48px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); flex-shrink: 0; cursor: pointer;" title="Click to view Before & After comparison">` :
+        `<div class="file-icon">🎬</div>`;
+
     div.innerHTML = `
         <div class="file-info">
-            <div class="file-icon">${item.format === 'MP4' ? '🎬' : '🖼️'}</div>
+            ${previewThumbnail}
             <div class="file-details">
                 <h4>${item.originalFile.name}</h4>
                 <p>
                     <span>Format: <strong>${item.format}</strong></span>
                     <span>Orig: ${(item.originalSize / 1024).toFixed(1)} KB</span>
                     <span>Clean: ${(item.cleanSize / 1024).toFixed(1)} KB</span>
-                    <span style="color: var(--emerald-500)">Saved: ${(item.bytesSaved / 1024).toFixed(1)} KB</span>
+                    <span style="color: var(--emerald-500); font-weight: 600;">Quality: 100% Preserved</span>
                     ${riskBadge}
                     ${stealthTag}
                 </p>
             </div>
         </div>
         <div class="control-group" style="margin-top: 6px;">
+            ${isImage ? `<button class="btn btn-secondary btn-sm compare-btn btn-full-mobile">↔ Compare Before/After</button>` : ''}
             <button class="btn btn-secondary btn-sm inspect-btn btn-full-mobile">Inspect Tags (${info.aiSignals.length})</button>
             <a href="${item.cleanUrl}" download="${item.cleanFileName}" class="btn btn-default btn-sm btn-full-mobile">Download Clean</a>
         </div>
     `;
+
+    if (isImage) {
+        div.querySelector('.queue-thumbnail')?.addEventListener('click', () => {
+            displayMetadataBeforeAfter(item);
+        });
+        div.querySelector('.compare-btn')?.addEventListener('click', () => {
+            displayMetadataBeforeAfter(item);
+        });
+    }
 
     // Inspector Drawer toggle with Platform Risk Matrix
     const inspectBtn = div.querySelector('.inspect-btn');

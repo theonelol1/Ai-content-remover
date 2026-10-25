@@ -1,4 +1,5 @@
 # PurePixel Studio - AI Media & Metadata Suite
+**Developed by Amol Adhude**
 
 A high-performance, 100% private, client-side web application for stripping AI metadata, removing watermarks, and optimizing digital media for social platforms.
 

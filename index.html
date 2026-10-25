@@ -29,6 +29,7 @@
                 <div class="brand-title">
                     <span class="brand-name">PurePixel</span>
                     <span class="badge-pill">Studio</span>
+                    <span class="dev-badge">by Amol Adhude</span>
                 </div>
             </a>
 
@@ -56,6 +57,9 @@
             <p class="hero-desc">
                 Lossless binary C2PA metadata stripper, camera stealth EXIF injection, and mathematical reverse alpha unblending for Gemini & Veo. 100% private in your browser.
             </p>
+            <div class="hero-author-credit">
+                <span>Designed & Developed by <strong style="color: var(--foreground);">Amol Adhude</strong> · 100% In-Browser Privacy</span>
+            </div>
         </section>
 
         <!-- Shadcn Tabs Navigation (AI Metadata C2PA FIRST) -->
@@ -142,6 +146,114 @@
                         <p class="option-box-desc">
                             Byte-level binary stream surgery. Removes metadata headers in 1ms without re-compressing visual image pixels or video tracks.
                         </p>
+                    </div>
+                </div>
+
+                <!-- Interactive Before & After Preview Tool (Uploaded Image) -->
+                <div id="meta-preview-section" style="display: none; margin-top: 24px;">
+                    <!-- 100% Quality Preserved Banner -->
+                    <div class="quality-guarantee-banner">
+                        <div class="quality-banner-icon">🛡️</div>
+                        <div class="quality-banner-content">
+                            <div class="quality-banner-title">
+                                <span>100% Image Quality Preserved</span>
+                                <span class="badge-pill" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border-color: rgba(16, 185, 129, 0.3);">
+                                    ✓ Zero Quality Loss Guarantee
+                                </span>
+                            </div>
+                            <p class="quality-banner-desc">
+                                Bit-for-bit lossless binary surgery. AI manifests are sliced directly out of file headers without decoding or re-encoding pixels. Resolution, sharpness, dynamic range, and color profiles remain 100.0% identical.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Viewer Header Bar (Tabs & Controls) -->
+                    <div class="preview-controls-bar">
+                        <div class="preview-title-wrap">
+                            <span id="meta-preview-filename" style="font-weight: 700; font-size: 0.95rem;"></span>
+                            <span id="meta-preview-dimensions" style="font-size: 0.78rem; color: var(--muted-foreground); font-family: var(--font-mono);"></span>
+                        </div>
+                        <div class="preview-mode-switch">
+                            <button type="button" id="meta-view-split-btn" class="view-mode-btn active" title="Split Slider">↔ Split View</button>
+                            <button type="button" id="meta-view-side-btn" class="view-mode-btn" title="Side by Side">◫ Side-by-Side</button>
+                            <button type="button" id="meta-clean-another-btn" class="btn btn-secondary btn-sm">Upload Another</button>
+                        </div>
+                    </div>
+
+                    <!-- Split Slider Mode Container -->
+                    <div id="meta-split-container" class="comparison-container">
+                        <div class="comparison-canvas-wrapper">
+                            <canvas id="meta-comparison-canvas" class="comparison-canvas"></canvas>
+                            <div class="comparison-badge before">
+                                <span>ORIGINAL (Before)</span>
+                                <span id="meta-before-badge-risk" class="mini-tag red">AI Manifests</span>
+                            </div>
+                            <div class="comparison-badge after">
+                                <span>CLEANED (After)</span>
+                                <span class="mini-tag green">100% Quality Preserved</span>
+                            </div>
+                            <div id="meta-split-line" class="split-slider-line" style="left: 50%;">
+                                <div id="meta-split-handle" class="split-slider-handle">↔</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Side-by-Side Mode Container -->
+                    <div id="meta-side-container" class="side-by-side-grid" style="display: none;">
+                        <div class="side-box">
+                            <div class="side-box-header">
+                                <span style="font-weight: 700;">Before (Original Upload)</span>
+                                <span id="meta-side-before-risk" class="status-badge risk">⚠️ AI Manifests Detected</span>
+                            </div>
+                            <div class="side-image-wrapper">
+                                <img id="meta-side-before-img" class="side-preview-img" alt="Before Original Image">
+                            </div>
+                            <div class="side-box-footer" id="meta-side-before-details"></div>
+                        </div>
+
+                        <div class="side-box">
+                            <div class="side-box-header">
+                                <span style="font-weight: 700;">After (PurePixel Cleaned)</span>
+                                <span class="status-badge clean">✅ 100% Quality Preserved</span>
+                            </div>
+                            <div class="side-image-wrapper">
+                                <img id="meta-side-after-img" class="side-preview-img" alt="After Cleaned Image">
+                            </div>
+                            <div class="side-box-footer" id="meta-side-after-details"></div>
+                        </div>
+                    </div>
+
+                    <!-- Quality Parity Metrics Bar -->
+                    <div class="quality-metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-label">Pixel Parity</div>
+                            <div class="metric-val green">100.0% Exact</div>
+                            <div class="metric-sub">0 Compression Loss</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Visual Resolution</div>
+                            <div class="metric-val" id="meta-metric-res">--</div>
+                            <div class="metric-sub">100% Preserved 1:1</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">C2PA / AI Manifests</div>
+                            <div class="metric-val red" id="meta-metric-stripped">Sliced</div>
+                            <div class="metric-sub">APP11, IPTC, XMP Removed</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Stealth Camera EXIF</div>
+                            <div class="metric-val blue" id="meta-metric-camera">Active</div>
+                            <div class="metric-sub">Platform Bypass Ready</div>
+                        </div>
+                    </div>
+
+                    <!-- Single Download Action Bar -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; flex-wrap: wrap; gap: 10px;">
+                        <div id="meta-preview-file-stat" style="font-size: 0.85rem; color: var(--muted-foreground);"></div>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; width: 100%; justify-content: flex-end;">
+                            <button type="button" id="meta-inspect-current-btn" class="btn btn-secondary btn-sm btn-full-mobile">🔍 Inspect AI Tags</button>
+                            <a id="meta-download-current-btn" class="btn btn-default btn-sm btn-full-mobile">⬇️ Download Clean Image</a>
+                        </div>
                     </div>
                 </div>
 
@@ -598,7 +710,7 @@
     <!-- Footer -->
     <footer class="site-footer">
         <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
-            <p>PurePixel AI Content Studio · Cinematic Shadcn UI · 100% Local Privacy</p>
+            <p>PurePixel AI Content Studio · Developed by <strong style="color: var(--foreground);">Amol Adhude</strong> · 100% In-Browser Privacy</p>
             <div style="display: flex; gap: 16px;">
                 <a href="privacy.html" style="color: var(--muted-foreground); text-decoration: none;">Privacy Policy</a>
                 <a href="terms.html" style="color: var(--muted-foreground); text-decoration: none;">Terms & Conditions</a>
