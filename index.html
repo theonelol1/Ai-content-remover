@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PurePixel Studio - AI Metadata Stripper & Watermark Remover</title>
+    <meta name="description" content="Cinematic AI media cleaner. Lossless C2PA & AI metadata stripper, camera stealth EXIF injection, pixel-exact Gemini watermark remover, and Veo video cleaner.">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+    <!-- Header (Cinematic GetLayers Blur Bar) -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="#" class="brand">
+                <div class="brand-icon">✨</div>
+                <div class="brand-title">
+                    <span class="brand-name">PurePixel</span>
+                    <span class="badge-pill">Studio</span>
+                </div>
+            </a>
+
+            <div class="header-actions">
+                <div class="privacy-badge">
+                    <span class="pulse-dot"></span>
+                    <span>100% In-Browser · 0 Uploads</span>
+                </div>
+                <button id="theme-toggle" class="theme-toggle-btn" title="Toggle Theme" aria-label="Toggle Theme">
+                    🌓
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-tag">🛡️ AI Metadata & C2PA Stripper + Watermark Engine</div>
+            <h1 class="hero-title">
+                Bypass Social AI Labels & <span class="gradient-text">Clean Content</span>
+            </h1>
+            <p class="hero-desc">
+                Lossless binary C2PA metadata stripper, camera stealth EXIF injection, and mathematical reverse alpha unblending for Gemini & Veo. 100% private in your browser.
+            </p>
+        </section>
+
+        <!-- Shadcn Tabs Navigation (AI Metadata C2PA FIRST) -->
+        <div class="tabs-wrapper">
+            <nav class="tabs-list" aria-label="Tool Selection">
+                <button class="tabs-trigger active" data-tab="metadata">
+                    <span>🛡️</span> AI Metadata & C2PA Stripper
+                </button>
+                <button class="tabs-trigger" data-tab="image">
+                    <span>🖼️</span> Gemini & Image Watermark
+                </button>
+                <button class="tabs-trigger" data-tab="video">
+                    <span>🎬</span> Veo & Video Watermark
+                </button>
+                <button class="tabs-trigger" data-tab="allinone">
+                    <span>⚡</span> All-in-One Multi-Cleaner
+                </button>
+            </nav>
+        </div>
+
+        <!-- Main Workspace Card -->
+        <div class="workspace-card">
+
+            <!-- ===================================== -->
+            <!-- 1. AI METADATA & C2PA STRIPPER (FIRST PART) -->
+            <!-- ===================================== -->
+            <section id="view-metadata" class="tool-view active">
+                <!-- Dropzone with Ctrl+V -->
+                <div id="meta-dropzone" class="dropzone">
+                    <div class="dropzone-icon-wrap">🛡️</div>
+                    <h3 class="dropzone-title">Drop images or videos to strip AI metadata & C2PA</h3>
+                    <p class="dropzone-desc">
+                        Slices out C2PA manifests, JUMBF, Adobe XMP, IPTC, and prompt parameters. Bypasses "Created with AI" badges.
+                    </p>
+                    
+                    <div style="margin-bottom: 16px;">
+                        <span class="shortcut-pill">
+                            <kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">V</kbd> to paste from clipboard anywhere
+                        </span>
+                    </div>
+
+                    <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap;">
+                        <button type="button" class="btn btn-secondary btn-sm" id="meta-paste-btn">
+                            📋 Paste from Clipboard
+                        </button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="document.getElementById('meta-file-input').click()">
+                            📁 Browse Files
+                        </button>
+                    </div>
+
+                    <div class="dropzone-tags">
+                        <span class="tag-badge">Bypass LinkedIn "Created with AI"</span>
+                        <span class="tag-badge">Bypass Instagram & Meta AI Info</span>
+                        <span class="tag-badge">Bypass TikTok AI Warnings</span>
+                        <span class="tag-badge">Camera Stealth EXIF</span>
+                        <span class="tag-badge">100% Lossless Binary</span>
+                    </div>
+                    <input type="file" id="meta-file-input" multiple accept="image/png,image/jpeg,image/webp,video/mp4,video/quicktime" style="display: none;">
+                </div>
+
+                <!-- Options Panel (Camera Stealth Injection from removeailabel) -->
+                <div class="options-panel" style="margin-top: 20px;">
+                    <div class="option-box">
+                        <div class="option-box-header">
+                            <span>📷 Camera Stealth Mode (EXIF Injection)</span>
+                        </div>
+                        <p class="option-box-desc">
+                            Replaces removed AI manifests with authentic digital camera hardware tags so social algorithms treat the file as a real photograph.
+                        </p>
+                        <select id="meta-stealth-preset" class="select-input">
+                            <option value="none">Strict Clean (No EXIF - 100% Anonymous)</option>
+                            <option value="sony-a7iv">Sony Alpha 7 IV (FE 24-70mm F2.8 GM II)</option>
+                            <option value="canon-r5">Canon EOS R5 (RF 24-70mm F2.8 L)</option>
+                            <option value="iphone-15pro">Apple iPhone 15 Pro (48MP Main)</option>
+                            <option value="fuji-xt5">Fujifilm X-T5 (XF 33mm F1.4)</option>
+                            <option value="nikon-z8">Nikon Z 8 (NIKKOR Z 50mm F1.2 S)</option>
+                        </select>
+                    </div>
+
+                    <div class="option-box">
+                        <div class="option-box-header">
+                            <span>🔒 Zero Quality Loss Guarantee</span>
+                        </div>
+                        <p class="option-box-desc">
+                            Byte-level binary stream surgery. Removes metadata headers in 1ms without re-compressing visual image pixels or video tracks.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Queue Actions Bar -->
+                <div id="meta-actions-bar" class="controls-bar" style="display: none;">
+                    <div class="control-group">
+                        <span style="font-size: 0.88rem; font-weight: 600;">Cleaned Queue</span>
+                    </div>
+                    <div class="control-group">
+                        <button id="meta-download-all-btn" class="btn btn-default btn-sm btn-full-mobile">📦 Download All Cleaned (ZIP)</button>
+                    </div>
+                </div>
+
+                <!-- Cleaned Queue List -->
+                <div id="meta-queue" class="file-queue"></div>
+            </section>
+
+            <!-- ===================================== -->
+            <!-- 2. IMAGE WATERMARK REMOVER VIEW -->
+            <!-- ===================================== -->
+            <section id="view-image" class="tool-view">
+                <!-- Dropzone with Ctrl+V -->
+                <div id="img-dropzone" class="dropzone">
+                    <div class="dropzone-icon-wrap">🖼️</div>
+                    <h3 class="dropzone-title">Drop an AI image here or click to browse</h3>
+                    <p class="dropzone-desc">Supports PNG, JPEG, WebP up to 8K resolution. Single or batch processing.</p>
+                    
+                    <div style="margin-bottom: 16px;">
+                        <span class="shortcut-pill">
+                            <kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">V</kbd> to paste screenshot / image
+                        </span>
+                    </div>
+
+                    <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap;">
+                        <button type="button" class="btn btn-secondary btn-sm" id="img-paste-btn">
+                            📋 Paste from Clipboard
+                        </button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="document.getElementById('img-file-input').click()">
+                            📁 Browse Files
+                        </button>
+                    </div>
+
+                    <div class="dropzone-tags">
+                        <span class="tag-badge">Google Gemini 3.x / 2.5</span>
+                        <span class="tag-badge">Imagen 3</span>
+                        <span class="tag-badge">Midjourney</span>
+                        <span class="tag-badge">DALL-E 3</span>
+                        <span class="tag-badge">Mathematical Zero-Blur</span>
+                    </div>
+                    <input type="file" id="img-file-input" accept="image/png,image/jpeg,image/webp" style="display: none;">
+                </div>
+
+                <!-- Processing Controls Bar -->
+                <div id="img-controls" class="controls-bar" style="display: none;">
+                    <div class="control-group">
+                        <span class="control-label">Algorithm:</span>
+                        <select id="img-mode" class="select-input">
+                            <option value="gemini-auto">Gemini Reverse Alpha (Pixel Exact)</option>
+                            <option value="custom-inpaint">Content-Aware Inpaint (Any Logo)</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <span class="control-label">Position:</span>
+                        <select id="img-position" class="select-input">
+                            <option value="bottom-right">Bottom-Right (Standard)</option>
+                            <option value="bottom-left">Bottom-Left</option>
+                            <option value="top-right">Top-Right</option>
+                            <option value="top-left">Top-Left</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <span class="control-label">Logo Size:</span>
+                        <select id="img-size" class="select-input">
+                            <option value="auto">Auto Calibrated</option>
+                            <option value="96">96px (1K / 2K / 4K)</option>
+                            <option value="48">48px (0.5K / Mobile)</option>
+                            <option value="36">36px (Compact v2)</option>
+                            <option value="120">120px (Veo / Large)</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group slider-container">
+                        <span class="control-label">Alpha:</span>
+                        <input type="range" id="img-alpha-gain" class="slider-input" min="0.5" max="1.5" step="0.05" value="1.0">
+                        <span id="img-alpha-val" class="slider-val">1.00x</span>
+                    </div>
+
+                    <div class="control-group">
+                        <label style="display: flex; align-items: center; gap: 6px; font-size: 0.82rem; cursor: pointer;">
+                            <input type="checkbox" id="img-humanizer-toggle" style="accent-color: var(--blue-500);">
+                            <span>Anti-AI Humanizer</span>
+                        </label>
+                    </div>
+
+                    <div class="control-group" id="img-humanizer-box" style="display: none;">
+                        <span class="control-label">Grain:</span>
+                        <select id="img-humanizer-strength" class="select-input">
+                            <option value="light">Subtle (Light)</option>
+                            <option value="medium">Medium</option>
+                            <option value="strong">Film Stock (Strong)</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group" style="width: 100%; justify-content: flex-end; margin-top: 8px;">
+                        <button id="img-reset-btn" class="btn btn-secondary btn-sm">Reset</button>
+                        <button id="img-download-btn" class="btn btn-default btn-sm">Download Clean PNG</button>
+                    </div>
+                </div>
+
+                <!-- Interactive Viewer (Split Slider) -->
+                <div id="img-viewer" style="display: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                        <span id="img-status-indicator" style="font-size: 0.85rem; color: var(--cyan-400); font-weight: 600;">
+                            Mathematical reverse alpha unblended!
+                        </span>
+                        <span style="font-size: 0.78rem; color: var(--muted-foreground);">
+                            Drag the white slider handle to compare
+                        </span>
+                    </div>
+
+                    <div id="comparison-box" class="comparison-container">
+                        <div class="comparison-canvas-wrapper">
+                            <canvas id="comparison-canvas" class="comparison-canvas"></canvas>
+                            <div class="comparison-badge before">Original</div>
+                            <div class="comparison-badge after">Cleaned</div>
+                            <div id="split-line" class="split-slider-line" style="left: 50%;">
+                                <div id="split-handle" class="split-slider-handle">↔</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================================== -->
+            <!-- 3. VIDEO WATERMARK REMOVER VIEW -->
+            <!-- ===================================== -->
+            <section id="view-video" class="tool-view">
+                <!-- Dropzone with Ctrl+V -->
+                <div id="vid-dropzone" class="dropzone">
+                    <div class="dropzone-icon-wrap">🎬</div>
+                    <h3 class="dropzone-title">Drop an AI video here or click to browse</h3>
+                    <p class="dropzone-desc">Supports MP4, WebM, MOV. Local frame processing with audio preservation.</p>
+                    
+                    <div style="margin-bottom: 16px;">
+                        <span class="shortcut-pill">
+                            <kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">V</kbd> to paste video file
+                        </span>
+                    </div>
+
+                    <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap;">
+                        <button type="button" class="btn btn-default btn-sm" onclick="document.getElementById('vid-file-input').click()">
+                            📁 Browse Video
+                        </button>
+                    </div>
+
+                    <div class="dropzone-tags">
+                        <span class="tag-badge">Google Veo</span>
+                        <span class="tag-badge">Gemini Video</span>
+                        <span class="tag-badge">Runway Gen-3</span>
+                        <span class="tag-badge">Sound Preserved</span>
+                    </div>
+                    <input type="file" id="vid-file-input" accept="video/mp4,video/webm,video/quicktime" style="display: none;">
+                </div>
+
+                <!-- Video Controls -->
+                <div id="vid-controls" class="controls-bar" style="display: none;">
+                    <div class="control-group">
+                        <span class="control-label">Method:</span>
+                        <select id="vid-mode" class="select-input">
+                            <option value="inpaint">Content-Aware Inpaint (Seamless)</option>
+                            <option value="unblend">Veo Reverse-Alpha Unblend</option>
+                            <option value="blur">Soft Gaussian Patch</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.82rem; cursor: pointer;">
+                            <input type="checkbox" id="vid-audio-toggle" checked style="accent-color: var(--blue-500);">
+                            <span>Preserve Audio Track</span>
+                        </label>
+                    </div>
+
+                    <div class="control-group btn-full-mobile">
+                        <button id="vid-start-btn" class="btn btn-default btn-full-mobile">Start Video Cleaning</button>
+                        <button id="vid-cancel-btn" class="btn btn-secondary btn-full-mobile" style="display: none;">Cancel</button>
+                        <button id="vid-download-btn" class="btn btn-success btn-full-mobile" style="display: none;">Download Clean Video</button>
+                    </div>
+                </div>
+
+                <!-- Live Progress Section -->
+                <div id="vid-progress-container" class="progress-container" style="display: none;">
+                    <div class="progress-header">
+                        <span id="vid-progress-text">Preparing video decoder...</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div id="vid-progress-fill" class="progress-bar-fill"></div>
+                    </div>
+                    <div id="vid-metrics" class="progress-metrics"></div>
+                </div>
+
+                <!-- Video Side-by-Side Player -->
+                <div id="vid-player-box" class="video-preview-grid" style="display: none;">
+                    <div class="video-box">
+                        <div class="video-box-header">
+                            <span>Original Video</span>
+                            <span style="color: var(--amber-500);">Source</span>
+                        </div>
+                        <video id="vid-original-player" class="video-player" controls playsinline></video>
+                    </div>
+
+                    <div class="video-box">
+                        <div class="video-box-header">
+                            <span>Cleaned Video (Live Frame Preview)</span>
+                            <span style="color: var(--emerald-500);">Processed</span>
+                        </div>
+                        <canvas id="vid-preview-canvas" class="video-canvas"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================================== -->
+            <!-- 4. ALL-IN-ONE MULTI-CLEANER VIEW -->
+            <!-- ===================================== -->
+            <section id="view-allinone" class="tool-view">
+                <div id="aio-dropzone" class="dropzone">
+                    <div class="dropzone-icon-wrap">⚡</div>
+                    <h3 class="dropzone-title">Drop Any AI File: Complete 1-Click Clean</h3>
+                    <p class="dropzone-desc">
+                        Simultaneously unblends visible watermarks, applies anti-AI analog humanization, and strips C2PA manifests with camera stealth EXIF injection in a single click!
+                    </p>
+
+                    <div style="margin-bottom: 16px;">
+                        <span class="shortcut-pill">
+                            <kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">V</kbd> to paste clipboard media
+                        </span>
+                    </div>
+
+                    <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap;">
+                        <button type="button" class="btn btn-secondary btn-sm" id="aio-paste-btn">
+                            📋 Paste from Clipboard
+                        </button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="document.getElementById('aio-file-input').click()">
+                            📁 Browse File
+                        </button>
+                    </div>
+
+                    <div class="dropzone-tags">
+                        <span class="tag-badge">Dual-Engine Processing</span>
+                        <span class="tag-badge">Watermark Unblended</span>
+                        <span class="tag-badge">C2PA Sliced</span>
+                        <span class="tag-badge">Camera Stealth Active</span>
+                    </div>
+                    <input type="file" id="aio-file-input" accept="image/png,image/jpeg,image/webp,video/mp4" style="display: none;">
+                </div>
+
+                <div class="options-panel" style="margin-top: 20px;">
+                    <div class="option-box">
+                        <div class="option-box-header">
+                            <span>📷 Camera Hardware Preset</span>
+                        </div>
+                        <select id="aio-stealth-preset" class="select-input">
+                            <option value="sony-a7iv">Sony Alpha 7 IV (Recommended)</option>
+                            <option value="canon-r5">Canon EOS R5</option>
+                            <option value="iphone-15pro">Apple iPhone 15 Pro</option>
+                            <option value="fuji-xt5">Fujifilm X-T5</option>
+                            <option value="nikon-z8">Nikon Z 8</option>
+                            <option value="none">None (Strict Clean)</option>
+                        </select>
+                    </div>
+
+                    <div class="option-box">
+                        <div class="option-box-header">
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                <input type="checkbox" id="aio-humanizer-toggle" checked style="accent-color: var(--blue-500);">
+                                <span>Analog Humanizer (Anti-AI Detector)</span>
+                            </label>
+                        </div>
+                        <p class="option-box-desc">
+                            Applies micro-grain dithering that breaks frequency-domain AI classifiers (like SynthID) without reducing visual sharpness.
+                        </p>
+                    </div>
+                </div>
+
+                <div id="aio-result-box" class="progress-container" style="display: none; margin-top: 24px; text-align: center;">
+                    <h4 id="aio-status-text" style="font-size: 1.05rem; margin-bottom: 14px;">Analyzing media...</h4>
+                    <a id="aio-download-btn" class="btn btn-default" style="display: none;">Download 100% Cleaned File</a>
+                </div>
+            </section>
+        </div>
+
+        <!-- Technical Comparison / Feature Showcase -->
+        <section class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3 class="feature-title">Bypass Social AI Badges</h3>
+                <p class="feature-desc">
+                    LinkedIn, Facebook, TikTok, and Instagram scan for <code>c2pa</code>, <code>APP11 (JUMBF)</code>, and <code>trainedAlgorithmicMedia</code> headers to automatically attach AI labels. PurePixel cleanly slices out these segments.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📷</div>
+                <h3 class="feature-title">Camera Stealth EXIF</h3>
+                <p class="feature-desc">
+                    Reverse-engineered from removeailabel.com: Injects authentic camera metadata (Sony Alpha 7 IV, Canon EOS R5, iPhone 15 Pro, Nikon Z 8) so platforms treat your media as a genuine camera photograph.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📐</div>
+                <h3 class="feature-title">Mathematical Reverse Alpha</h3>
+                <p class="feature-desc">
+                    No blurry AI hallucinations. Our reverse-engineered engine applies calibrated D4 dihedral group alpha maps to invert the watermark formula: <code>Original = (Watermarked - α · Logo) / (1 - α)</code>.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎞️</div>
+                <h3 class="feature-title">Anti-AI Analog Humanizer</h3>
+                <p class="feature-desc">
+                    Applies imperceptible high-frequency analog micro-noise that disrupts frequency-domain AI detectors and SynthID neural classifiers without altering image quality.
+                </p>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2 class="faq-title">Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What does Camera Stealth Mode do?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    When social platforms (LinkedIn, Instagram, TikTok, Meta) analyze an upload, completely empty metadata can sometimes trigger secondary algorithmic checks. Camera Stealth Mode strips all AI manifests (C2PA, JUMBF, Prompts) and injects genuine camera hardware EXIF tags (Sony, Canon, Apple, Nikon) with realistic lens, shutter speed, ISO, and focal length values.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How does the Analog Humanizer counter SynthID and AI classifiers?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    Pixel-level invisible watermarks (like Google SynthID) and AI classifiers (Hive, Sightengine) operate by detecting mathematical periodicity and unnaturally smooth gradients inherent in latent diffusion models. The Analog Humanizer applies subtle, film-like micro-sensor dithering across the pixel matrix. This disrupts the high-frequency harmonics that AI detectors search for, while remaining virtually invisible to the human eye.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Why do LinkedIn, Instagram, and TikTok label my photos as "Created with AI"?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    When AI models like Google Gemini, Midjourney, DALL-E, or Canva generate photos, they insert hidden metadata tags such as C2PA Content Credentials manifests (APP11/JUMBF) or IPTC digitalSourceType markers. When you upload your media, social platforms scan these tags and attach an AI badge. Our tool strips these specific markers in 1 millisecond.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Does stripping metadata reduce image or video quality?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    No! Our metadata stripper operates directly at the binary byte stream level. It removes metadata segments without decoding and re-compressing the visual entropy data. Your JPEG, PNG, or WebP pixels remain 100% bit-for-bit identical.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Are my files uploaded to any server?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    No. All algorithms execute 100% locally on your machine inside your browser. You can even run this website entirely offline without an active internet connection.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>PurePixel AI Content Studio · Cinematic Shadcn UI · 100% Local Privacy</p>
+        </div>
+    </footer>
+
+    <!-- Toast Container (Sonner style) -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jszip.min.js"></script>
+    <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

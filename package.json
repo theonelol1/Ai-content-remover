@@ -1,0 +1,19 @@
+{
+  "name": "purepixel-ai-studio",
+  "version": "1.0.0",
+  "description": "All-in-one AI Watermark Remover & C2PA Metadata Stripper. Reverse-engineered from GeminiWatermarkRemover and Polipics.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "gemini-watermark-remover",
+    "veo-watermark-remover",
+    "ai-metadata-remover",
+    "c2pa-stripper",
+    "reverse-alpha-blending"
+  ],
+  "author": "",
+  "license": "MIT"
+}
