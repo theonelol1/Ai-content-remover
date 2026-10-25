@@ -3,11 +3,11 @@
  * Cinematic Shadcn UI, AI Metadata & C2PA First, Global Ctrl+V Clipboard Paste, Mobile Optimized
  */
 
-import { GeminiWatermarkEngine } from './gemini-watermark-engine.js?v=20261026-02';
-import { MetadataStripper } from './metadata-stripper.js?v=20261026-02';
-import { InpaintEngine } from './inpaint-engine.js?v=20261026-02';
-import { VideoWatermarkEngine } from './video-watermark-engine.js?v=20261026-02';
-import { AnalogHumanizer } from './analog-humanizer.js?v=20261026-02';
+import { GeminiWatermarkEngine } from './gemini-watermark-engine.js?v=20261026-03';
+import { MetadataStripper } from './metadata-stripper.js?v=20261026-03';
+import { InpaintEngine } from './inpaint-engine.js?v=20261026-03';
+import { VideoWatermarkEngine } from './video-watermark-engine.js?v=20261026-03';
+import { AnalogHumanizer } from './analog-humanizer.js?v=20261026-03';
 
 // Application State (Metadata & C2PA is Tab #1 Default)
 const state = {
@@ -286,6 +286,10 @@ function initMetaPreviewControls() {
     const anotherBtn = document.getElementById('meta-clean-another-btn');
     const toggleDropzoneBtn = document.getElementById('meta-toggle-dropzone-btn');
     const inspectCurrentBtn = document.getElementById('meta-inspect-current-btn');
+    const canvasDlBtn = document.getElementById('meta-canvas-download-btn');
+    const sideDlBtn = document.getElementById('meta-side-download-btn');
+    canvasDlBtn?.addEventListener('click', (e) => e.stopPropagation());
+    sideDlBtn?.addEventListener('click', (e) => e.stopPropagation());
     const fileInput = document.getElementById('meta-file-input');
     const dropzone = document.getElementById('meta-dropzone');
     const optionsPanel = document.querySelector('#view-metadata .options-panel');
@@ -396,6 +400,10 @@ async function displayMetadataBeforeAfter(item) {
     if (dlBtn) {
         dlBtn.href = item.cleanUrl;
         dlBtn.download = item.cleanFileName;
+    const canvasDlBtn = document.getElementById('meta-canvas-download-btn');
+    const sideDlBtn = document.getElementById('meta-side-download-btn');
+    if (canvasDlBtn) { canvasDlBtn.href = item.cleanUrl; canvasDlBtn.download = item.cleanFileName; }
+    if (sideDlBtn) { sideDlBtn.href = item.cleanUrl; sideDlBtn.download = item.cleanFileName; }
         dlBtn.textContent = `⬇️ Download 100% Clean Image (${(item.cleanSize / 1024).toFixed(1)} KB)`;
     }
     if (statEl) {
@@ -650,6 +658,10 @@ function renderMetadataItem(item, container) {
 function initImageTool() {
     const dropzone = document.getElementById('img-dropzone');
     const fileInput = document.getElementById('img-file-input');
+    const imgCanvasDl = document.getElementById('img-canvas-download-btn');
+    const imgSideDl = document.getElementById('img-side-download-btn');
+    imgCanvasDl?.addEventListener('click', (e) => e.stopPropagation());
+    imgSideDl?.addEventListener('click', (e) => e.stopPropagation());
     const controls = document.getElementById('img-controls');
     const viewer = document.getElementById('img-viewer');
     const alphaGainSlider = document.getElementById('img-alpha-gain');
@@ -816,6 +828,12 @@ async function processCurrentImage() {
     if (sideAfterImg) {
         sideAfterImg.src = canvas.toDataURL('image/png');
     }
+    const baseName = state.image.file?.name.replace(/\.[^/.]+$/, "") || 'clean-image';
+    const cleanPngUrl = canvas.toDataURL('image/png');
+    const imgCanvasDl = document.getElementById('img-canvas-download-btn');
+    const imgSideDl = document.getElementById('img-side-download-btn');
+    if (imgCanvasDl) { imgCanvasDl.href = cleanPngUrl; imgCanvasDl.download = `${baseName}-cleaned.png`; }
+    if (imgSideDl) { imgSideDl.href = cleanPngUrl; imgSideDl.download = `${baseName}-cleaned.png`; }
 }
 
 function applyInpaintCorner(ctx, w, h) {
@@ -1076,6 +1094,10 @@ async function startVideoProcessing() {
 function initAllInOneTool() {
     const dropzone = document.getElementById('aio-dropzone');
     const fileInput = document.getElementById('aio-file-input');
+    const aioCanvasDl = document.getElementById('aio-canvas-download-btn');
+    const aioSideDl = document.getElementById('aio-side-download-btn');
+    aioCanvasDl?.addEventListener('click', (e) => e.stopPropagation());
+    aioSideDl?.addEventListener('click', (e) => e.stopPropagation());
     const resultBox = document.getElementById('aio-result-box');
     const humanizerToggle = document.getElementById('aio-humanizer-toggle');
     const stealthPresetSelect = document.getElementById('aio-stealth-preset');
@@ -1315,6 +1337,10 @@ async function handleAllInOne(file) {
             dlBtn.style.display = 'inline-flex';
             dlBtn.href = stripped.cleanUrl;
             dlBtn.download = stripped.cleanFileName;
+        const aioCanvasDl = document.getElementById('aio-canvas-download-btn');
+        const aioSideDl = document.getElementById('aio-side-download-btn');
+        if (aioCanvasDl) { aioCanvasDl.href = stripped.cleanUrl; aioCanvasDl.download = stripped.cleanFileName; }
+        if (aioSideDl) { aioSideDl.href = stripped.cleanUrl; aioSideDl.download = stripped.cleanFileName; }
             dlBtn.textContent = `⬇️ Download 100% Clean Image (${(stripped.cleanSize / 1024).toFixed(1)} KB)`;
         }
         showToast('⚡ Dual Clean Complete!', 'success');

@@ -942,6 +942,70 @@ img, video, canvas, svg {
   border-right: 3px solid var(--emerald-500);
 }
 
+/* Floating Download Button on Image with Blue Background */
+.image-overlay-download-btn {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  z-index: 25;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #2563eb;
+  color: #ffffff !important;
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 8px 14px;
+  border-radius: 9999px;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.5), 0 2px 6px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  pointer-events: auto;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+}
+
+.image-overlay-download-btn svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  stroke: #ffffff;
+  transition: transform 0.2s ease;
+}
+
+.image-overlay-download-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 6px 22px rgba(37, 99, 235, 0.7), 0 3px 8px rgba(0, 0, 0, 0.5);
+  color: #ffffff !important;
+}
+
+.image-overlay-download-btn:hover svg {
+  transform: translateY(1.5px);
+}
+
+.image-overlay-download-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+@media (max-width: 640px) {
+  .image-overlay-download-btn {
+    bottom: 10px;
+    right: 10px;
+    padding: 7px 11px;
+    font-size: 0.76rem;
+    gap: 5px;
+  }
+  .image-overlay-download-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
 /* Quality Guarantee Banner */
 .quality-guarantee-banner {
   display: flex;
@@ -1062,6 +1126,7 @@ img, video, canvas, svg {
 }
 
 .side-image-wrapper {
+  position: relative;
   background: #000;
   min-height: 240px;
   max-height: 440px;
