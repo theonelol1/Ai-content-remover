@@ -33,6 +33,7 @@
             </a>
 
             <div class="header-actions">
+                <a href="#how-it-works" class="nav-link">How It Works</a>
                 <div class="privacy-badge">
                     <span class="pulse-dot"></span>
                     <span>100% In-Browser · 0 Uploads</span>
@@ -432,6 +433,76 @@
                 </div>
             </section>
         </div>
+
+        <!-- How It Works Section (Real-World Social Media Comparison) -->
+        <section id="how-it-works" class="how-it-works-section">
+            <div class="how-it-works-header">
+                <div class="how-it-works-badge">
+                    <span>⚡</span> Real-World Proof
+                </div>
+                <h2 class="how-it-works-title">
+                    How It Works: <span class="gradient-text">Bypass Social "AI Content" Labels</span>
+                </h2>
+                <p class="how-it-works-desc">
+                    Social platforms like Instagram, Meta, LinkedIn, and TikTok scan uploaded photos for embedded C2PA manifests, JUMBF headers, and IPTC AI markers. When detected, they automatically slap an <strong>"AI content"</strong> or <strong>"Created with AI"</strong> badge on your posts. PurePixel strips all AI manifests and injects authentic camera EXIF so your media displays completely clean.
+                </p>
+            </div>
+
+            <!-- Comparison Card -->
+            <div class="how-it-works-card">
+                <div class="how-it-works-banner-bar">
+                    <div class="how-it-works-banner-item how-it-works-banner-red">
+                        <span>🚨</span>
+                        <span>Before: Flagged with "AI Content" Label</span>
+                    </div>
+                    <div class="how-it-works-banner-item how-it-works-banner-green">
+                        <span>✨</span>
+                        <span>After: Clean Post with PurePixel Studio</span>
+                    </div>
+                </div>
+
+                <div class="how-it-works-image-wrapper">
+                    <img 
+                        src="assets/images/how-it-works-ai-label-comparison.jpg" 
+                        alt="Instagram AI Content Label Comparison - Before and After PurePixel Studio" 
+                        class="how-it-works-image" 
+                        loading="lazy"
+                    >
+                </div>
+
+                <div class="how-it-works-image-caption">
+                    <span class="caption-tag red">❌ Left: Instagram forces "AI content" badge due to C2PA metadata</span>
+                    <span class="caption-tag green">✅ Right: PurePixel stripped C2PA & injected camera EXIF — 100% clean post</span>
+                </div>
+            </div>
+
+            <!-- 3-Step Walkthrough -->
+            <div class="how-it-works-steps">
+                <div class="step-card">
+                    <span class="step-num-badge">STEP 01</span>
+                    <h3 class="step-title"><span>📥</span> Upload or Paste</h3>
+                    <p class="step-desc">
+                        Drag & drop or paste (<kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">V</kbd>) any image or video generated with Midjourney, ChatGPT/DALL-E, Flux, Stable Diffusion, or Canva.
+                    </p>
+                </div>
+
+                <div class="step-card">
+                    <span class="step-num-badge">STEP 02</span>
+                    <h3 class="step-title"><span>🛡️</span> Lossless Manifest Stripping</h3>
+                    <p class="step-desc">
+                        Our engine slices out C2PA JUMBF, IPTC <code>trainedAlgorithmicMedia</code> flags, Adobe XMP history, and prompt/seed parameters directly at the binary byte stream level without re-encoding.
+                    </p>
+                </div>
+
+                <div class="step-card">
+                    <span class="step-num-badge">STEP 03</span>
+                    <h3 class="step-title"><span>📷</span> Camera Stealth EXIF</h3>
+                    <p class="step-desc">
+                        Injects authentic hardware EXIF tags (Sony Alpha 7 IV, Canon EOS R5, iPhone 15 Pro) to neutralize secondary algorithmic scans—guaranteeing your posts stay badge-free.
+                    </p>
+                </div>
+            </div>
+        </section>
 
         <!-- Technical Comparison / Feature Showcase -->
         <section class="features-grid">
