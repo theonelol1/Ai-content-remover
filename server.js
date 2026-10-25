@@ -25,10 +25,13 @@ const MIME_TYPES = {
 };
 
 const server = http.createServer((req, res) => {
-    // Basic CORS & Security headers
+    // Basic CORS, Security & Zero-Cache headers
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
     res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
 
     let reqPath = decodeURIComponent(req.url.split('?')[0]);
     if (reqPath === '/' || reqPath === '') {
