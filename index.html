@@ -13,7 +13,7 @@
 
     <script defer src="https://cloud.realtraffic.bond/script.js" data-website-id="3e64a1bc-4e63-4112-99dd-c0db19ff045f"></script>
 
-    <link rel="stylesheet" href="assets/css/style.css?v=20261026-03">
+    <link rel="stylesheet" href="assets/css/style.css?v=20261026-04">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
@@ -66,16 +66,24 @@
         <div class="tabs-wrapper">
             <nav class="tabs-list" aria-label="Tool Selection">
                 <button class="tabs-trigger active" data-tab="metadata">
-                    <span>🛡️</span> AI Metadata & C2PA Stripper
+                    <span class="tab-icon">🛡️</span>
+                    <span class="tab-label-full">AI Metadata & C2PA Stripper</span>
+                    <span class="tab-label-mobile">Metadata & C2PA</span>
                 </button>
                 <button class="tabs-trigger" data-tab="image">
-                    <span>🖼️</span> Gemini & Image Watermark
+                    <span class="tab-icon">🖼️</span>
+                    <span class="tab-label-full">Gemini & Image Watermark</span>
+                    <span class="tab-label-mobile">Image Watermark</span>
                 </button>
                 <button class="tabs-trigger" data-tab="video">
-                    <span>🎬</span> Veo & Video Watermark
+                    <span class="tab-icon">🎬</span>
+                    <span class="tab-label-full">Veo & Video Watermark</span>
+                    <span class="tab-label-mobile">Video Watermark</span>
                 </button>
                 <button class="tabs-trigger" data-tab="allinone">
-                    <span>⚡</span> All-in-One Multi-Cleaner
+                    <span class="tab-icon">⚡</span>
+                    <span class="tab-label-full">All-in-One Multi-Cleaner</span>
+                    <span class="tab-label-mobile">All-in-One Clean</span>
                 </button>
             </nav>
         </div>
@@ -166,15 +174,15 @@
                             <span id="meta-preview-dimensions" style="font-size: 0.78rem; color: var(--muted-foreground); font-family: var(--font-mono);"></span>
                         </div>
                         <div class="preview-mode-switch">
-                            <button type="button" id="meta-view-split-btn" class="view-mode-btn active" title="Split Slider">↔ Split View</button>
-                            <button type="button" id="meta-view-side-btn" class="view-mode-btn" title="Side by Side">◫ Side-by-Side</button>
+                            <button type="button" id="meta-view-side-btn" class="view-mode-btn active" title="Side by Side">◫ Side-by-Side</button>
+                            <button type="button" id="meta-view-split-btn" class="view-mode-btn" title="Split Slider">↔ Split View</button>
                             <button type="button" id="meta-clean-another-btn" class="btn btn-secondary btn-sm">📁 Upload Another</button>
                             <button type="button" id="meta-toggle-dropzone-btn" class="btn btn-secondary btn-sm" title="Show or hide dropzone">↕ Toggle Dropzone</button>
                         </div>
                     </div>
 
                     <!-- Split Slider Mode Container -->
-                    <div id="meta-split-container" class="comparison-container">
+                    <div id="meta-split-container" class="comparison-container" style="display: none;">
                         <div class="comparison-canvas-wrapper">
                             <canvas id="meta-comparison-canvas" class="comparison-canvas"></canvas>
                             <div class="comparison-badge before">
@@ -201,7 +209,7 @@
                     </div>
 
                     <!-- Side-by-Side Mode Container -->
-                    <div id="meta-side-container" class="side-by-side-grid" style="display: none;">
+                    <div id="meta-side-container" class="side-by-side-grid">
                         <div class="side-box">
                             <div class="side-box-header">
                                 <span style="font-weight: 700;">Before (Original Upload)</span>
@@ -402,14 +410,14 @@
                             <span id="img-preview-dimensions" style="font-size: 0.78rem; color: var(--muted-foreground); font-family: var(--font-mono);"></span>
                         </div>
                         <div class="preview-mode-switch">
-                            <button type="button" id="img-view-split-btn" class="view-mode-btn active" title="Split Slider">↔ Split View</button>
-                            <button type="button" id="img-view-side-btn" class="view-mode-btn" title="Side by Side">◫ Side-by-Side</button>
+                            <button type="button" id="img-view-side-btn" class="view-mode-btn active" title="Side by Side">◫ Side-by-Side</button>
+                            <button type="button" id="img-view-split-btn" class="view-mode-btn" title="Split Slider">↔ Split View</button>
                             <button type="button" id="img-upload-another-btn" class="btn btn-secondary btn-sm">📁 Upload Another</button>
                         </div>
                     </div>
 
                     <!-- Split Slider Mode Container -->
-                    <div id="comparison-box" class="comparison-container">
+                    <div id="comparison-box" class="comparison-container" style="display: none;">
                         <div class="comparison-canvas-wrapper">
                             <canvas id="comparison-canvas" class="comparison-canvas"></canvas>
                             <div class="comparison-badge before">
@@ -434,7 +442,7 @@
                     </div>
 
                     <!-- Side-by-Side Mode Container -->
-                    <div id="img-side-container" class="side-by-side-grid" style="display: none;">
+                    <div id="img-side-container" class="side-by-side-grid">
                         <div class="side-box">
                             <div class="side-box-header">
                                 <span style="font-weight: 700;">Before (Original Image)</span>
@@ -674,8 +682,8 @@
                             <span id="aio-preview-dimensions" style="font-size: 0.78rem; color: var(--muted-foreground); font-family: var(--font-mono);"></span>
                         </div>
                         <div class="preview-mode-switch">
-                            <button type="button" id="aio-view-split-btn" class="view-mode-btn active" title="Split Slider">↔ Split View</button>
-                            <button type="button" id="aio-view-side-btn" class="view-mode-btn" title="Side by Side">◫ Side-by-Side</button>
+                            <button type="button" id="aio-view-side-btn" class="view-mode-btn active" title="Side by Side">◫ Side-by-Side</button>
+                            <button type="button" id="aio-view-split-btn" class="view-mode-btn" title="Split Slider">↔ Split View</button>
                             <button type="button" id="aio-clean-another-btn" class="btn btn-secondary btn-sm">📁 Upload Another</button>
                         </div>
                     </div>
@@ -706,7 +714,7 @@
                     </div>
 
                     <!-- Side-by-Side Mode Container -->
-                    <div id="aio-side-container" class="side-by-side-grid" style="display: none;">
+                    <div id="aio-side-container" class="side-by-side-grid">
                         <div class="side-box">
                             <div class="side-box-header">
                                 <span style="font-weight: 700;">Before (Uploaded Original)</span>
@@ -945,7 +953,7 @@
     <div id="toast-container" class="toast-container"></div>
 
     <!-- Scripts -->
-    <script src="assets/js/jszip.min.js?v=20261026-03"></script>
-    <script type="module" src="assets/js/app.js?v=20261026-03"></script>
+    <script src="assets/js/jszip.min.js?v=20261026-04"></script>
+    <script type="module" src="assets/js/app.js?v=20261026-04"></script>
 </body>
 </html>

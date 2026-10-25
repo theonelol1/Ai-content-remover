@@ -445,6 +445,16 @@ async function displayMetadataBeforeAfter(item) {
 
     renderMetaSplitCanvas(metaOrigImg, metaCleanImg, metaSplitPos);
 
+    // Default comparison view: Side-by-Side
+    const metaSplitBtn = document.getElementById('meta-view-split-btn');
+    const metaSideBtn = document.getElementById('meta-view-side-btn');
+    const metaSplitContainer = document.getElementById('meta-split-container');
+    const metaSideContainer = document.getElementById('meta-side-container');
+    if (metaSideBtn) metaSideBtn.classList.add('active');
+    if (metaSplitBtn) metaSplitBtn.classList.remove('active');
+    if (metaSideContainer) metaSideContainer.style.display = 'grid';
+    if (metaSplitContainer) metaSplitContainer.style.display = 'none';
+
     const sideBeforeImg = document.getElementById('meta-side-before-img');
     const sideAfterImg = document.getElementById('meta-side-after-img');
     const sideBeforeDetails = document.getElementById('meta-side-before-details');
@@ -813,6 +823,16 @@ async function processCurrentImage() {
 
     state.image.cleanCanvas = canvas;
     renderComparisonViewer();
+
+    // Default comparison view: Side-by-Side
+    const imgSplitBtn = document.getElementById('img-view-split-btn');
+    const imgSideBtn = document.getElementById('img-view-side-btn');
+    const imgSplitContainer = document.getElementById('comparison-box');
+    const imgSideContainer = document.getElementById('img-side-container');
+    if (imgSideBtn) imgSideBtn.classList.add('active');
+    if (imgSplitBtn) imgSplitBtn.classList.remove('active');
+    if (imgSideContainer) imgSideContainer.style.display = 'grid';
+    if (imgSplitContainer) imgSplitContainer.style.display = 'none';
 
     // Update Tab 2 Quality Parity Bar & Side-by-side images
     const dimsEl = document.getElementById('img-preview-dimensions');
@@ -1284,9 +1304,16 @@ async function handleAllInOne(file) {
         statusText.textContent = 'Done! 100% Watermark Free, C2PA Stripped, & Camera Stealth Injected.';
         
         // Show quality banner & metrics
+        const aioSideContainer = document.getElementById('aio-side-container');
+        const aioSplitBtn = document.getElementById('aio-view-split-btn');
+        const aioSideBtn = document.getElementById('aio-view-side-btn');
+
         if (qualityBanner) qualityBanner.style.display = 'flex';
         if (previewControls) previewControls.style.display = 'flex';
-        if (splitContainer) splitContainer.style.display = 'flex';
+        if (aioSideBtn) aioSideBtn.classList.add('active');
+        if (aioSplitBtn) aioSplitBtn.classList.remove('active');
+        if (aioSideContainer) aioSideContainer.style.display = 'grid';
+        if (splitContainer) splitContainer.style.display = 'none';
         if (qualityMetrics) qualityMetrics.style.display = 'grid';
 
         const filenameEl = document.getElementById('aio-preview-filename');
