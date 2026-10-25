@@ -5,15 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PurePixel Studio - AI Metadata Stripper & Watermark Remover</title>
     <meta name="description" content="Cinematic AI media cleaner. Lossless C2PA & AI metadata stripper, camera stealth EXIF injection, pixel-exact Gemini watermark remover, and Veo video cleaner.">
+    
+    <!-- ============================================================ -->
+    <!-- INSERT CUSTOM SCRIPTS HERE (Analytics, GTM, AdSense, etc.)   -->
+    <!-- Paste your Google Analytics, Tag Manager, or Ad scripts here -->
+    <!-- ============================================================ -->
+
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
     <!-- Header (Cinematic GetLayers Blur Bar) -->
+    <!-- ============================================================ -->
+    <!-- HEADER BAR: Navigation links and title                       -->
+    <!-- ============================================================ -->
     <header class="site-header">
         <div class="container header-inner">
-            <a href="#" class="brand">
+            <a href="index.html" class="brand">
                 <div class="brand-icon">✨</div>
                 <div class="brand-title">
                     <span class="brand-name">PurePixel</span>
@@ -104,7 +113,7 @@
                     <input type="file" id="meta-file-input" multiple accept="image/png,image/jpeg,image/webp,video/mp4,video/quicktime" style="display: none;">
                 </div>
 
-                <!-- Options Panel (Camera Stealth Injection from removeailabel) -->
+                <!-- Options Panel (Camera Stealth Injection) -->
                 <div class="options-panel" style="margin-top: 20px;">
                     <div class="option-box">
                         <div class="option-box-header">
@@ -436,7 +445,7 @@
                 <div class="feature-icon">📷</div>
                 <h3 class="feature-title">Camera Stealth EXIF</h3>
                 <p class="feature-desc">
-                    Reverse-engineered from removeailabel.com: Injects authentic camera metadata (Sony Alpha 7 IV, Canon EOS R5, iPhone 15 Pro, Nikon Z 8) so platforms treat your media as a genuine camera photograph.
+                    Injects authentic camera metadata (Sony Alpha 7 IV, Canon EOS R5, iPhone 15 Pro, Nikon Z 8) so platforms treat your media as a genuine camera photograph.
                 </p>
             </div>
 
@@ -444,7 +453,7 @@
                 <div class="feature-icon">📐</div>
                 <h3 class="feature-title">Mathematical Reverse Alpha</h3>
                 <p class="feature-desc">
-                    No blurry AI hallucinations. Our reverse-engineered engine applies calibrated D4 dihedral group alpha maps to invert the watermark formula: <code>Original = (Watermarked - α · Logo) / (1 - α)</code>.
+                    No blurry AI hallucinations. Our engine applies calibrated D4 dihedral group alpha maps to invert the watermark formula: <code>Original = (Watermarked - α · Logo) / (1 - α)</code>.
                 </p>
             </div>
 
@@ -515,8 +524,12 @@
 
     <!-- Footer -->
     <footer class="site-footer">
-        <div class="container">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
             <p>PurePixel AI Content Studio · Cinematic Shadcn UI · 100% Local Privacy</p>
+            <div style="display: flex; gap: 16px;">
+                <a href="privacy.html" style="color: var(--muted-foreground); text-decoration: none;">Privacy Policy</a>
+                <a href="terms.html" style="color: var(--muted-foreground); text-decoration: none;">Terms & Conditions</a>
+            </div>
         </div>
     </footer>
 

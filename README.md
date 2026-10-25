@@ -1,52 +1,67 @@
-# PurePixel Studio: AI Watermark & C2PA Metadata Remover
+# PurePixel Studio - AI Media & Metadata Suite
 
-An all-in-one, 100% private, client-side web application reverse-engineered from:
-1. **[removeailabel.com](https://removeailabel.com/)** (AI Label & C2PA Stripper with Camera Stealth EXIF Injection)
-2. **[geminiwatermarkremover.io](https://geminiwatermarkremover.io/)** (Image Watermark Remover)
-3. **[geminiwatermarkremover.io/video](https://geminiwatermarkremover.io/video)** (Video Watermark Remover)
-4. **[polipics.in/free-tools/ai-metadata-remover](https://polipics.in/free-tools/ai-metadata-remover)** (Lossless AI Metadata Cleaner)
-5. **[wiltodelta/remove-ai-watermarks](https://github.com/wiltodelta/remove-ai-watermarks)** (Analog Humanizer & Anti-SynthID Perturbation)
+A high-performance, 100% private, client-side web application for stripping AI metadata, removing watermarks, and optimizing digital media for social platforms.
+
+All processing occurs directly inside the browser using WebAssembly, HTML5 Canvas, and binary ArrayBuffers. **No media files are ever uploaded to any external server.**
 
 ---
 
-## 🔬 Reverse Engineering Breakdown
+## ✨ Features
 
-### 1. Social AI Label Bypass & Camera Stealth Mode ([removeailabel.com](https://removeailabel.com/))
-Social platforms (LinkedIn, Instagram, Facebook, Meta, TikTok, and X) scan uploaded media for specific metadata manifests and headers:
-- **C2PA JUMBF Manifests** (`APP11` in JPEG, `c2pa`/`caBX` in PNG)
-- **IPTC Digital Source Type**: `trainedAlgorithmicMedia`
-- **Adobe XMP History** tracking AI tools (`Photoshop Generative Fill`, `Firefly`)
-- **Generation Parameters**: Text prompts, negative prompts, seeds, samplers
+### 1. 🛡️ Lossless AI Metadata & C2PA Stripper
+- **Lossless Binary Parsing**: Strips AI tags directly at the byte level without re-encoding, preserving 100% of original image quality and sharpness.
+- **Deep Clean Engine**: Eliminates C2PA JUMBF manifests (`APP11` in JPEG, `c2pa` and `caBX` chunks in PNG), IPTC `trainedAlgorithmicMedia` flags, and Adobe XMP generation histories.
+- **Prompt & Parameter Scrubbing**: Removes text generation prompts, negative prompts, seeds, steps, and sampler metadata left by Midjourney, Stable Diffusion, DALL-E, Flux, and Ideogram.
+- **Supported Formats**: JPEG, PNG, WebP, and MP4.
 
-#### Why Camera Stealth Mode is Critical:
-When an image is completely scrubbed of all metadata, social media algorithms may submit it to secondary visual neural network classification. **Camera Stealth Mode** removes all AI manifests and injects authentic hardware camera EXIF headers into the file:
+### 2. 📷 Camera Stealth Mode (Authentic EXIF Injection)
+Neutralizes secondary automated scans on social networks by replacing blank metadata with realistic digital camera EXIF headers:
 - **Sony Alpha 7 IV** (`ILCE-7M4` + `FE 24-70mm F2.8 GM II`)
 - **Canon EOS R5** (`RF 24-70mm F2.8 L IS USM`)
 - **Apple iPhone 15 Pro** (48MP Main f/1.78)
 - **Fujifilm X-T5** (`XF 33mm F1.4 R`)
 - **Nikon Z 8** (`NIKKOR Z 50mm f/1.2 S`)
 
-This causes social media inspection systems to classify the file as a genuine digital camera photograph, bypassing automated "Created with AI" badges.
+### 3. 🌐 Social Platform AI Risk Matrix
+Provides real-time compliance and risk assessment before uploading to major platforms:
+- **LinkedIn**: Flagging status, IPTC compliance, and feed penalty risk.
+- **Instagram & Meta**: Detection of C2PA manifests and automatic "Made with AI" badge triggers.
+- **TikTok**: Verification of algorithmic content labeling criteria.
+- **Google Search**: Assessment of synthetic media provenance flags.
 
-### 2. Analog Humanizer & Anti-SynthID Disruptor ([remove-ai-watermarks](https://github.com/wiltodelta/remove-ai-watermarks))
-- Imperceptible pixel-domain watermarks (such as Google SynthID) and AI classifiers (Hive, Sightengine, Illuminarty) analyze high-frequency Fourier harmonics and latent diffusion periodicity.
-- The **Analog Humanizer** applies subtle, photographic film-grain micro-dithering across the pixel matrix.
-- This breaks the high-frequency harmonics that AI detectors search for without reducing perceptual sharpness or color accuracy.
+### 4. 🖼️ Image Watermark Remover
+- **Reverse Alpha Unblending**: Mathematical unblending calibrated for corner badges to recover original underlying pixel values without blurring.
+- **Content-Aware Inpainting**: Fast boundary diffusion for custom or non-uniform watermark areas.
+- **Batch Processing**: Clean multiple files simultaneously and download all results in a single ZIP archive.
 
-### 3. Gemini Watermark Removal: Mathematical Reverse Alpha Blending
-$$\text{Original} = \frac{\text{Watermarked} - \alpha \cdot \text{Logo}}{1 - \alpha}$$
-- Decodes $D_4$ dihedral group symmetry signed alpha maps ($48\times 48$, $96\times 96$, $36\times 36$) for exact unblending with zero blur.
+### 5. 🎬 Video Watermark Remover
+- **Frame-by-Frame Processing**: Client-side video processing for MP4, WebM, and MOV files.
+- **Full Audio Preservation**: Routes original audio streams via the Web Audio API to prevent audio loss or sync drift.
+- **Side-by-Side Preview**: Real-time progress monitoring with live frame rendering.
 
-### 4. Video Watermark Removal: Frame-by-Frame WebCodecs & Canvas
-- Processes MP4, WebM, and MOV video streams frame-by-frame.
-- Removes Veo / Gemini video watermarks via reverse alpha or content-aware diffusion.
-- Preserves 100% of the original audio track via Web Audio API routing.
+### 6. 🎞️ Anti-AI Analog Humanizer
+- **Micro-Dither Perturbation**: Applies imperceptible, organic photographic film-grain dithering across high-frequency color channels.
+- **Frequency Disruption**: Disrupts latent diffusion periodicity and synthetic frequency harmonics used by AI classifiers.
+
+### 7. 📋 Global Clipboard Support
+- **`Ctrl + V` / `Cmd + V` Paste**: Instant image import from your clipboard anywhere on the page for maximum workflow speed.
+- **Drag & Drop**: Native drag-and-drop zone with instant file validation.
+
+### 8. 📱 Modern Responsive Interface
+- **Shadcn UI Design**: Clean aesthetics with glassmorphic accents and tactile feedback.
+- **Dark / Light Theme**: Instant theme toggle with system preference auto-detection.
+- **Mobile Optimized**: Full responsiveness across smartphones, tablets, and desktop displays.
+
+### 9. 🔒 Complete Privacy by Design
+- **Zero Server Uploads**: Every byte is decoded, manipulated, and exported locally in the user's browser.
+- **Works Offline**: The application can be saved locally or run on a local network without an internet connection.
 
 ---
 
-## 🚀 Running Locally
+## 🚀 Getting Started
 
-The local server is already configured and zero-dependency:
+### Option 1: Run Locally (Zero Dependencies)
+You can start the built-in HTTP server using Node.js:
 ```bash
 npm start
 ```
@@ -54,31 +69,56 @@ or:
 ```bash
 node server.js
 ```
-Open your browser at:
+Then visit:
 ```
 http://localhost:3000
 ```
-Or open [index.html](file:///c:/Users/amola/Downloads/AI%20Content%20remover/index.html) directly for 100% offline usage.
+
+### Option 2: Direct Offline Usage
+You can open `index.html` directly in any modern web browser (Chrome, Edge, Firefox, Safari) without running a server.
 
 ---
 
-## 📁 Architecture
+## 📁 Project Structure
 
 ```
 AI Content remover/
-├── index.html                      # Single unified web application interface
-├── server.js                       # Lightweight zero-dependency Node HTTP server
-├── package.json                    # Scripts and project metadata
-├── README.md                       # Documentation & reverse engineering architecture
+├── index.html                      # Main web application interface
+├── privacy.html                    # Privacy Policy page
+├── terms.html                      # Terms & Conditions page
+├── server.js                       # Lightweight local HTTP server
+├── package.json                    # Project configuration and start scripts
+├── README.md                       # Documentation and feature guide
 └── assets/
     ├── css/
-    │   └── style.css               # Modern glassmorphism dark/light design
+    │   └── style.css               # Responsive design, themes, and UI components
     └── js/
-        ├── app.js                  # Main UI controller & interactive workflows
-        ├── gemini-watermark-engine.js # Calibrated D4 reverse-alpha blending engine
-        ├── metadata-stripper.js    # Lossless binary C2PA stripper & EXIF injector
-        ├── analog-humanizer.js     # Film-grain micro-dither to disrupt AI classifiers
-        ├── video-watermark-engine.js  # Video canvas & MediaRecorder frame engine
-        ├── inpaint-engine.js       # Fast content-aware boundary diffusion inpainting
-        └── jszip.min.js            # Offline ZIP archive creator for batch downloads
+        ├── app.js                  # Main controller, tab management, clipboard paste
+        ├── metadata-stripper.js    # Binary C2PA metadata stripper & EXIF injector
+        ├── gemini-watermark-engine.js # Mathematical reverse-alpha unblending engine
+        ├── video-watermark-engine.js  # Video canvas & audio stream pipeline
+        ├── analog-humanizer.js     # Film-grain micro-dither generator
+        ├── inpaint-engine.js       # Fast content-aware boundary diffusion
+        └── jszip.min.js            # Offline ZIP archive builder
 ```
+
+---
+
+## 📄 Custom Scripts & Analytics Integration
+
+To integrate custom scripts (such as Google Analytics, Google Tag Manager, AdSense, or custom tracking), open the HTML files and locate the marked header section:
+
+```html
+<!-- ============================================================ -->
+<!-- INSERT CUSTOM SCRIPTS HERE (Analytics, GTM, AdSense, etc.)   -->
+<!-- ============================================================ -->
+```
+This placeholder is present in:
+- `index.html` (lines ~9–12)
+- `privacy.html` (lines ~9–11)
+- `terms.html` (lines ~9–11)
+
+---
+
+## 📜 License
+Distributed under the MIT License. Processed media remains 100% the property of the end user.
