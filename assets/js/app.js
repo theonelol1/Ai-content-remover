@@ -552,7 +552,6 @@ function initComparisonSlider() {
         let pct = ((clientX - rect.left) / rect.width) * 100;
         pct = Math.max(0, Math.min(100, pct));
         state.image.splitPos = pct;
-        if (handle) handle.style.left = `${pct}%`;
         if (line) line.style.left = `${pct}%`;
         renderComparisonViewer();
     };
