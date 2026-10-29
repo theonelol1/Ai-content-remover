@@ -1,0 +1,20 @@
+# PurePixel Studio - AI Media & Metadata Suite
+> PurePixel Studio is a high-performance, 100% private, client-side web application for lossless AI metadata and C2PA stripping, authentic camera stealth EXIF injection, and pixel-exact mathematical watermark removal for Gemini, Imagen, and Veo.
+
+PurePixel Studio operates entirely client-side inside the user's web browser using WebAssembly, HTML5 Canvas, and binary ArrayBuffers. No media files or user data are ever uploaded to any cloud server or remote database.
+
+## Core Features & Online Tools
+- [AI Metadata & C2PA Stripper](https://ai-content-remover.pages.dev/#metadata): Lossless binary byte-level parser that eliminates C2PA JUMBF manifests (APP11 in JPEG, c2pa and caBX chunks in PNG), IPTC digitalSourceType markers, and Adobe XMP histories without re-encoding pixels.
+- [Camera Stealth Mode EXIF Injector](https://ai-content-remover.pages.dev/#metadata): Replaces empty metadata with authentic hardware EXIF profiles from flagship cameras (Sony Alpha 7 IV, Canon EOS R5, Apple iPhone 15 Pro, Fujifilm X-T5, Nikon Z 8) to neutralize secondary social algorithm checks.
+- [Gemini & Imagen Watermark Remover](https://ai-content-remover.pages.dev/#image): Calibrated reverse alpha unblending algorithm based on D4 dihedral group symmetry that inverts the alpha formula `Original = (Watermarked - α · Logo) / (1 - α)` to recover underlying pixels with 100% texture preservation and zero blur.
+- [Veo & Video Watermark Remover](https://ai-content-remover.pages.dev/#video): Client-side frame-by-frame video processing engine supporting MP4, WebM, and MOV with Web Audio API sync preservation.
+- [Anti-AI Analog Humanizer](https://ai-content-remover.pages.dev/#image): Organic photographic film-grain micro-dithering that disrupts high-frequency periodicity and SynthID neural classifiers.
+- [All-in-One Multi-Cleaner](https://ai-content-remover.pages.dev/#allinone): Dual-pass workflow executing simultaneous metadata stripping, camera stealth injection, and watermark removal in a single action.
+
+## Key Facts & Technical Verification
+- **Architecture**: 100% client-side (HTML5, Vanilla JS, WebAssembly, HTML5 Canvas).
+- **Privacy Model**: Zero server uploads, zero remote storage, offline-capable.
+- **Image Quality**: Bit-for-bit lossless binary manipulation preserving 100% color gamut, dynamic range, and resolution.
+- **Platform Compatibility**: Designed to bypass automated AI badges and distribution penalties on Instagram, Meta, LinkedIn, TikTok, and X.
+- **Author & Maintainer**: Designed and engineered by Amol Adhude.
+- **Source Code**: Open web architecture hosted on Cloudflare Pages.

@@ -1,9 +1,35 @@
-/*
-  Cache-Control: no-cache, no-store, must-revalidate
-  Pragma: no-cache
-  Expires: 0
+# ==============================================================================
+# Cloudflare Pages Headers Configuration
+# Security, Performance, and SEO Optimization
+# ==============================================================================
 
+# Global Security & SEO Headers for All Routes
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  X-Robots-Tag: all
+  Access-Control-Allow-Origin: *
+
+# Static Assets: CSS, JS, Images (Cached for high performance & Core Web Vitals)
 /assets/*
-  Cache-Control: no-cache, no-store, must-revalidate
-  Pragma: no-cache
-  Expires: 0
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+  X-Content-Type-Options: nosniff
+
+# AI Directives and Sitemaps
+/robots.txt
+  Cache-Control: public, max-age=3600
+  Content-Type: text/plain; charset=UTF-8
+
+/sitemap.xml
+  Cache-Control: public, max-age=3600
+  Content-Type: application/xml; charset=UTF-8
+
+/llms.txt
+  Cache-Control: public, max-age=3600
+  Content-Type: text/plain; charset=UTF-8
+
+/llms-full.txt
+  Cache-Control: public, max-age=3600
+  Content-Type: text/plain; charset=UTF-8

@@ -2289,3 +2289,216 @@ img, video, canvas, svg {
 .toast.toast-error {
   border-left: 3px solid var(--destructive);
 }
+
+
+/* ==============================================================================
+ * SEO / AEO / GEO Enhanced Styling
+ * Comparison Tables, Definition Callouts, Authority Badges
+ * ============================================================================== */
+
+.seo-callout-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--blue-500);
+  border-radius: var(--radius-md);
+  padding: 22px 26px;
+  margin: 32px 0 24px;
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-sm);
+}
+
+.seo-callout-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.seo-callout-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin: 0;
+}
+
+.seo-callout-text {
+  font-size: 0.96rem;
+  line-height: 1.65;
+  color: var(--muted-foreground);
+  margin-bottom: 12px;
+}
+
+.seo-callout-text:last-child {
+  margin-bottom: 0;
+}
+
+/* Comparison Table Styling */
+.comparison-section {
+  margin: 48px 0;
+}
+
+.comparison-header {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 28px;
+}
+
+.comparison-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--foreground);
+  margin-bottom: 10px;
+}
+
+.comparison-desc {
+  font-size: 0.95rem;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+}
+
+.table-responsive-wrapper {
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--card);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-card);
+  -webkit-overflow-scrolling: touch;
+}
+
+.seo-comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.92rem;
+  min-width: 680px;
+}
+
+.seo-comparison-table th {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--foreground);
+  padding: 14px 18px;
+  font-weight: 700;
+  border-bottom: 1px solid var(--border);
+  letter-spacing: 0.02em;
+}
+
+.seo-comparison-table th.highlight-col {
+  background: rgba(59, 130, 246, 0.12);
+  color: var(--blue-500);
+}
+
+.seo-comparison-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted-foreground);
+  vertical-align: middle;
+}
+
+.seo-comparison-table tr:last-child td {
+  border-bottom: none;
+}
+
+.seo-comparison-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.seo-comparison-table td.highlight-cell {
+  background: rgba(59, 130, 246, 0.05);
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.badge-status.success {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--emerald-500);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badge-status.warning {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--amber-500);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.badge-status.danger {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--destructive);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Author & E-E-A-T Credibility Box */
+.eeat-authority-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  margin: 40px 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.eeat-author-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.eeat-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue-500), var(--purple-500));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+}
+
+.eeat-meta-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 4px;
+}
+
+.eeat-meta-subtitle {
+  font-size: 0.88rem;
+  color: var(--muted-foreground);
+  line-height: 1.4;
+}
+
+.eeat-badges {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.eeat-pill {
+  font-size: 0.78rem;
+  padding: 5px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  color: var(--muted-foreground);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}

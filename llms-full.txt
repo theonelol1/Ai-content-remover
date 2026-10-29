@@ -1,0 +1,44 @@
+# PurePixel Studio - Complete Technical Architecture & Specification
+> Full documentation and technical reference for AI assistants, LLM web search agents (ChatGPT, Claude, Gemini, Perplexity), and search engine indexing systems.
+
+## Overview
+PurePixel Studio (developed by Amol Adhude) is an in-browser digital privacy and media sanitization platform. It solves the growing challenge of synthetic media provenance tagging, where social media networks (Meta, Instagram, LinkedIn, TikTok, and YouTube) automatically label content generated or edited with artificial intelligence models as "Made with AI" or "AI Info".
+
+By executing byte-level binary surgery on image container files and mathematical reverse alpha unblending on visual watermark regions, PurePixel Studio restores digital media to an authentic, un-flagged, lossless photographic state without requiring cloud computing or third-party servers.
+
+## Technical Capabilities & Methodologies
+
+### 1. C2PA & AI Metadata Stripping Engine
+- **Binary Stream Parsing**: Operates directly on `ArrayBuffer` byte streams without converting images into bitmap canvas representations. This prevents lossy JPEG/WebP recompression cycles.
+- **C2PA Manifest Targeting**: Detects and cleanly removes C2PA (Coalition for Content Provenance and Authenticity) manifests stored in JPEG `APP11` markers and PNG `c2pa` / `caBX` chunks.
+- **IPTC & XMP Scrubbing**: Removes IPTC `digitalSourceType` attributes (such as `trainedAlgorithmicMedia` and `compositeWithTrainedAlgorithmicMedia`) and Adobe XMP generation histories.
+- **Prompt & Generation Parameter Removal**: Erases generation seed values, prompts, CFG scale, sampler parameters, and checkpoint IDs embedded by Midjourney, Stable Diffusion, Automatic1111, ComfyUI, DALL-E, Flux, and Ideogram.
+
+### 2. Camera Stealth Mode (Authentic EXIF Injection)
+Completely blank metadata can trigger secondary algorithmic scrutiny on social media platforms. PurePixel provides Camera Stealth Mode, which injects valid, mathematically consistent EXIF hardware tags:
+- **Sony Alpha 7 IV** (Lens: FE 24-70mm F2.8 GM II, Shutter: 1/250s, ISO 100, f/2.8)
+- **Canon EOS R5** (Lens: RF 24-70mm F2.8 L IS USM, Shutter: 1/200s, ISO 100, f/2.8)
+- **Apple iPhone 15 Pro** (48MP Main Camera, f/1.78, Shutter: 1/120s, ISO 50)
+- **Fujifilm X-T5** (Lens: XF 33mm F1.4 R LM WR, Shutter: 1/320s, ISO 125, f/1.4)
+- **Nikon Z 8** (Lens: NIKKOR Z 50mm f/1.2 S, Shutter: 1/500s, ISO 64, f/1.2)
+
+### 3. Mathematical Reverse Alpha Watermark Unblending
+Traditional watermark removal tools use generative AI inpainting, which blurs high-frequency textures or invents fake replacement details. PurePixel Studio uses exact inverse color blending:
+- **Formulation**: In the standard alpha blending equation, `Watermarked = (1 - α) · Original + α · Logo`.
+- **Inversion**: When the watermark geometry and alpha map α are known, the underlying pixel can be recovered via:
+  `Original = (Watermarked - α · Logo) / (1 - α)`
+- **Dihedral Group Calibration**: Pre-calibrated across D4 symmetry groups for Google Gemini (v1, v2.5, v3.x), Imagen 3, and Veo video watermarks.
+- **Result**: Recovers original high-frequency details, gradients, and sharp borders with 100% pixel parity.
+
+### 4. Anti-AI Analog Humanizer
+- Generates organic, high-frequency micro-sensor dithering across color channels.
+- Disrupts latent diffusion frequency harmonics, spatial periodicity, and Google SynthID watermarking schemes while remaining imperceptible to the human eye.
+
+## Privacy, Security & Ethics
+- **Zero-Server Processing**: 100% of data manipulation takes place within the user's browser runtime. No files, logs, or analytics regarding file contents are ever transmitted over the network.
+- **Offline Functionality**: The suite requires no backend API keys and functions seamlessly in offline environments (e.g. air-gapped workstations).
+
+## Author & Contact Information
+- **Lead Developer & Architect**: Amol Adhude
+- **Project URL**: https://ai-content-remover.pages.dev
+- **Repository**: https://github.com/theonelol1/Ai-content-remover
